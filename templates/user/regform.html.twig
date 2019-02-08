@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formulario{% endblock %}
+
+{% block body %}
+
+    <div class="col-lg-4 box-form">
+        <h2>Register here</h2>
+        {# coge las etiquetas html de form#}
+        {{ form_start(form) }}
+        {# coloca los inputs definidos en UserType#}
+        {{ form_widget(form) }}
+        <input type="submit" class="btn btn-success" value="Register"/>
+        {{ form_errors(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+{# falta indicar que podemos acceder a esta ruta#}

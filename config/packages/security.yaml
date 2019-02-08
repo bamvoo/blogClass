@@ -1,0 +1,51 @@
+security:
+    #codificadores para los hash de los passwords por ejemplo
+    encoders:
+        App\Entity\User:
+            #el último sistema de encriptación que tiene
+            #algorithm: argon2i
+            #lo cambiamos por este
+            algorithm: bcrypt
+            cost: 4
+
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                #con que propiedad hacemos la validación del login
+                property: email
+    firewalls:
+        #el campo de desarroyo, deveopment
+        dev:
+            #to_do lo que empiece por lo de abajo no tiene ningún tipo de seguridad
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            #para permitir el acceso anónimo
+            anonymous: true
+            pattern: ^/
+            # activate different ways to authenticate
+
+            # http_basic: true
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            #con esto activamos el login del sistema, con esto ahora vamos a intentar login con formularios
+            form_login:
+                #indicamos las rutas para hacer el login
+                login_path: app_login
+                #la comprovación
+                check_path: app_login
+            # la ruta de salida
+            logout:
+                path: app_logout
+                target: /
+            # https://symfony.com/doc/current/security/form_login_setup.html
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        #con esto podré acceder por lo que empieze por /admin solo si tengo el rol de user ADMIN
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }

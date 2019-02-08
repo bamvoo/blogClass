@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {# twig usa is_granted para definir los roles#}
+    {% if is_granted('ROLE_ADMIN') %}
+        <h1>Bienvenido querido administrador</h1>
+    {% endif %}
+{% endblock %}
